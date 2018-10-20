@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="utf-8">
+</head>
+<body>
+
+	<script>
+		/*
+		Made by Krotkikh Andrey 19.10.2018
+		*/
+		
+		var minValue = +prompt("Введите нижний предел загадываемого числа",1000);
+		var maxValue = +prompt("Введите верхний предел загадываемого числа",9999);
+		var randValue = Math.round(minValue - 0.5 + Math.random() * (maxValue - minValue + 1));
+		var mainTest = true;
+		var userValueStr;
+
+    	while (mainTest) {
+
+    		alert(randValue);
+
+    		userValueStr = prompt("Введите ваше четырёхзначное число с разными цифрами","1234");
+
+    		if (userValueStr === null) {
+    			alert("Вы вышли из игры");
+    			Break;
+    		}
+
+    		if (userValueStr.length < 4) {
+    			alert("Вы ввели число с числом значащих цифр меньше 4");
+    			Break;
+    		}
+
+    		if (userValueStr.length > 4) {
+    			alert("Вы ввели число с числом значащих цифр больше 4");
+    			Break;
+    		}
+
+    		var userValueStrLength = userValueStr.length;
+    		var randValueStr = String(randValue);
+    		var randValueStrLength = randValueStr.length;
+
+    		var cowCount = 0;
+    		var bullCount = 0;
+
+    		//Нахождение чисел быков и коров
+
+    		for (i = 1; i <= randValueStrLength; i++) {
+			  if (+randValueStr[i] == +userValueStr[i]) {
+			  	bullCount = bullCount + 1;
+			  }
+			  if ((+ randValueStr[i] != + userValueStr[i]) && (userValueStr.indexOf(randValueStr[i]) != -1)) {
+			  	cowCount = cowCount + 1;
+			  }
+			}
+  			
+  			mainTest = false;
+  			alert(randValueStr);
+  			alert(userValueStr);
+  			alert("Число коров = " + String(cowCount));
+  			alert("Число быков = " + String(bullCount));
+
+    	}
+
+	</script>
+
+</body>
+</html>

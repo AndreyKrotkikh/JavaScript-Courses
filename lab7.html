@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+</head>
+<body>
+
+	<script>
+		
+		var test = prompt("Enter UserName","UserName")
+		var test2
+
+		if (test === null)
+			{
+				alert("Вход отменён")
+			} 
+		else 
+			{
+				if (test === "Admin")
+				{
+					test2 = prompt("Enter Password","*******")
+					if (test2 === null) 
+						{
+							alert("Вход отменён")
+						} 
+					else 
+						{
+							if (test2 === "Sauron") 
+							{
+								alert("Good day for you")
+							} 
+							else 
+							{
+								alert("Wrong Password")
+							}
+						}
+				} 
+				else
+					{
+						alert("Я вас не знаю");
+					}
+			}
+
+	</script>
+
+</body>
+</html>
