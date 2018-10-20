@@ -11,58 +11,107 @@
 		Made by Krotkikh Andrey 19.10.2018
 		*/
 		
-		var minValue = +prompt("Введите нижний предел загадываемого числа",1000);
-		var maxValue = +prompt("Введите верхний предел загадываемого числа",9999);
-		var randValue = Math.round(minValue - 0.5 + Math.random() * (maxValue - minValue + 1));
+		var nums = ["0","1","2","3","4","5","6","7","8","9"];
 		var mainTest = true;
+		var test1 = true;
+		var test2 = true;
 		var userValueStr;
+		var randValueStr;
+		var userValueStrLength;
+		var randValueStrLength;
+    	var cowCount = 0;
+    	var bullCount = 0;
+
+    	var currentIndex = nums.length;
+    	var temporaryValue;
+    	var randomIndex;
+
+    	var iterNum;
+    	var numsNumber;
+
+    	while (0 !== currentIndex) {
+
+    		randomIndex = Math.floor(Math.random() * currentIndex);
+    		currentIndex -= 1;
+    		temporaryValue = nums[currentIndex];
+    		nums[currentIndex] = nums[randomIndex];
+    		nums[randomIndex] = temporaryValue;
+  		}
+
+  		if (+ nums[0] === 0) {
+  			temporaryValue = nums[nums.length];
+  			nums[nums.length] = nums[0];
+  			nums[0] = temporaryValue;
+  		} 
+
+  		numsNumber = prompt("Введите число цифр в числе","4");
+
+  		randValueStr = "";
+
+  		for (var i = 1; i <= numsNumber; i++) {
+  			randValueStr = randValueStr + nums[i];
+  		}
+
+  		alert(randValueStr);
+
+  		iterNum = 0;
 
     	while (mainTest) {
 
-    		alert(randValue);
-
-    		userValueStr = prompt("Введите ваше четырёхзначное число с разными цифрами","1234");
+    		userValueStr = prompt("Введите ваше " + `${numsNumber}-` + "значное число с разными цифрами","1234");
 
     		if (userValueStr === null) {
     			alert("Вы вышли из игры");
-    			Break;
+    			break;
     		}
 
-    		if (userValueStr.length < 4) {
-    			alert("Вы ввели число с числом значащих цифр меньше 4");
-    			Break;
+    		userValueStrLength = userValueStr.length;
+
+    		if (userValueStr.length < numsNumber) {
+    			alert("Вы ввели число с числом значащих цифр меньше " + `${numsNumber}.`);
+    			test1 = false;
+    			break;
     		}
 
-    		if (userValueStr.length > 4) {
-    			alert("Вы ввели число с числом значащих цифр больше 4");
-    			Break;
+    		if (userValueStr.length > numsNumber) {
+    			alert("Вы ввели число с числом значащих цифр больше " + `${numsNumber}.`);
+    			test2 = false;
+    			break;
     		}
 
-    		var userValueStrLength = userValueStr.length;
-    		var randValueStr = String(randValue);
-    		var randValueStrLength = randValueStr.length;
-
-    		var cowCount = 0;
-    		var bullCount = 0;
+    		cowCount = 0;
+    		bullCount = 0;
 
     		//Нахождение чисел быков и коров
 
-    		for (i = 1; i <= randValueStrLength; i++) {
-			  if (+randValueStr[i] == +userValueStr[i]) {
+    		for (i = 1; i <= userValueStrLength; i++) {
+			  if (+ randValueStr[i-1] == + userValueStr[i-1]) {
 			  	bullCount = bullCount + 1;
-			  }
-			  if ((+ randValueStr[i] != + userValueStr[i]) && (userValueStr.indexOf(randValueStr[i]) != -1)) {
+			  } else if ((+ randValueStr[i-1] != + userValueStr[i-1]) && (userValueStr.indexOf(randValueStr[i-1]) != -1)) {
 			  	cowCount = cowCount + 1;
 			  }
 			}
   			
-  			mainTest = false;
-  			alert(randValueStr);
-  			alert(userValueStr);
-  			alert("Число коров = " + String(cowCount));
-  			alert("Число быков = " + String(bullCount));
+  			if (bullCount == numsNumber) {
+  				mainTest = false;
+  			} 
+
+  			alert("Ваше число = " + userValueStr + "; \nЧисло коров = " + String(cowCount) + "; \nЧисло быков = " + String(bullCount) + ".");	
+
+  			iterNum = iterNum + 1;
 
     	}
+
+    	if (userValueStr != null && test1 && test2) {
+	    	if (iterNum === 1) {
+	    		alert("Вы отгадали число с " + String(iterNum) + " попытки.");
+	    	} else {
+	    		alert("Вы отгадали число с " + String(iterNum) + " попыток.");
+	    	}
+	    } else {
+	    	alert("Вы не отгадали число.")
+	    }
+    	
 
 	</script>
 
