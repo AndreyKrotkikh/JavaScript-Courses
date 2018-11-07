@@ -1,0 +1,249 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+
+    td {
+      border: 1px solid black;
+      padding: 3px 5px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="field"></div>
+  
+  <script>
+
+  	function winConChecking(winCount) {
+	    var xWin = "";
+	    var oWin = "";
+	    var test = "";
+
+	    for (var i = 1; i <= winCount; i++) {
+	    	xWin += 'x';
+	    	oWin += 'o';
+	    }
+	    /*Горизонтальная проверка*/
+		for (var i = 0; i < height; i++) {
+
+	    var trow = table.rows[i];
+	    var test = "";
+
+		    for (var j = 0; j < width; j++) {
+		    		
+		    	var trcell = trow.cells[j];
+
+		    	test += trcell.innerHTML;
+		    }
+		    
+		    if (test.includes(xWin)) {
+		    	checkWin = 1;
+		    }
+
+		    if (test.includes(oWin)) {
+		    	checkWin = 2;
+		    }
+
+	    }
+		/*Вертикальная проверка*/
+	    for (var i = 0; i < height; i++) {
+
+	    	var test = "";
+
+		    for (var j = 0; j < width; j++) {
+		    		
+		    	var trcell = table.rows[j].cells[i];
+
+		    	test += trcell.innerHTML;
+		    }
+		    
+		    if (test.includes(xWin)) {
+		    	checkWin = 1;
+		    }
+		    
+		    if (test.includes(oWin)) {
+		    	checkWin = 2;
+		    }
+
+	    }
+		/*Диагональ - верхний левый -> правый нижний, нижний треугольник поля*/
+		
+	    for (var i = 0; i < height; i++) {
+
+	    	var test = "";
+
+		    for (var j = 0; j < width - i; j++) {
+		    		
+		    	var trcell = table.rows[i + j].cells[j];
+
+		    	test += trcell.innerHTML;
+		    }
+		    
+		    if (test.includes(xWin)) {
+		    	checkWin = 1;
+		    }
+		    
+		    if (test.includes(oWin)) {
+		    	checkWin = 2;
+		    }
+
+	    }
+	    /*Диагональ - верхний левый -> правый нижний, верхний треугольник поля без главной диагонали*/
+		
+	    for (var i = 1; i < width; i++) {
+
+	    	var test = "";
+
+		    for (var j = 1; j < height - i + 1; j++) {
+		    		
+		    	var trcell = table.rows[j-1].cells[i + j - 1];
+
+		    	test += trcell.innerHTML;
+		    }
+		    
+		    if (test.includes(xWin)) {
+		    	checkWin = 1;
+		    }
+		    
+		    if (test.includes(oWin)) {
+		    	checkWin = 2;
+		    }
+
+	    }
+
+	    /*Диагональ - нижний левый -> правый верхний, нижний треугольник поля*/
+		
+	    for (var i = 0; i < height; i++) {
+
+	    	var test = "";
+
+		    for (var j = 0; j < width - i; j++) {
+		    		
+		    	var trcell = table.rows[height - j - 1].cells[j + i];
+
+		    	test += trcell.innerHTML;
+		    }
+		    
+		    if (test.includes(xWin)) {
+		    	checkWin = 1;
+		    }
+		    
+		    if (test.includes(oWin)) {
+		    	checkWin = 2;
+		    }
+
+	    }
+
+	    /*Диагональ - нижний левый -> правый верхний, верхний треугольник поля без главной диагонали*/
+		
+	    for (var i = 1; i < width; i++) {
+
+	    	var test = "";
+
+		    for (var j = 1; j < height - i + 1; j++) {
+		    		
+		    	var trcell = table.rows[height - j - i].cells[j - 1];
+
+		    	test += trcell.innerHTML;
+		    }
+		    
+		    if (test.includes(xWin)) {
+		    	checkWin = 1;
+		    }
+		    
+		    if (test.includes(oWin)) {
+		    	checkWin = 2;
+		    }  
+
+	    }
+	    
+	}
+
+    function crossOrDot() {
+	    if (!Boolean(this.innerHTML)) {
+	    	if ((k % 2) === 1) {
+	    		this.innerHTML = "x";
+	    		this.setAttribute("bgcolor","#FFD700");
+	    	}
+	    	else
+	    	{
+	    		this.innerHTML = "o";
+	    		this.setAttribute("bgcolor","#FFA07A");
+	    	}
+	    	k = k + 1;
+	    	winConChecking(winCount);
+	    	if (checkWin !== 0) {removeEvents()}
+	    }
+	    else {
+	    	alert("Клетка занята!");
+	    }
+	}
+
+	function createTable(id,width,height) {
+	    var table = '<table height = 300 width = 300>';
+	    var elem = document.getElementById(id);
+	    for (var i = 1; i <= height; i++) {
+	    	table += '<tr>';
+	    	for (var j = 1; j <= width; j++) {
+	    		table += '<td></td>';
+	    	}
+	    	table += '</tr>';
+	    }
+	    table += '</table>';
+	    console.log(table);
+	    elem.innerHTML = table;
+	}
+
+	function removeEvents() {
+	    for (var i = 0; i < table.rows.length; i++) {
+
+    	var trow = table.rows[i];
+
+	    	for (var j = 0; j < trow.cells.length; j++) {
+	    		
+	    		var trcell = trow.cells[j];
+		
+	    		trcell.removeEventListener("click",crossOrDot);
+
+	    	}
+    	}
+	}
+
+    var k = 0;
+    var checkWin = 0;
+    var width = +prompt("Введите горизонтальный размер поля","7");
+    var height = +prompt("Введите вертикальный размер поля","7");
+    var winCount = +prompt("Введите размер выигрышной последовательности","5");
+
+    createTable("field",width,height);
+
+    var table = document.getElementsByTagName('table')[0];
+
+    console.log(table);
+
+    for (var i = 0; i < table.rows.length; i++) {
+
+    	var trow = table.rows[i];
+
+    	for (var j = 0; j < trow.cells.length; j++) {
+    		
+    		var trcell = trow.cells[j];
+
+    		trcell.setAttribute("id",`${i}`+`${j}`);  		
+    		trcell.addEventListener("click",crossOrDot);
+    	}
+    }
+
+    console.log(table);
+
+  </script>
+</body>
+
+</html>

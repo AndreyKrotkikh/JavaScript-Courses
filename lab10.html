@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <link rel="stylesheet" href="style.css">
+    
+  </head>
+
+  <body>
+    <div class="js-app">
+      <h3>Напишите функцию <i>highlight</i>, 
+        которая для каждой строки <i>tr</i> таблицы:</h3>
+      <ol>
+        <li>
+          Проставит класс <i>available/unavailable</i>,
+          в зависимости от значения атрибута <i>data-available</i> у ячейки
+          <i>Status</i>
+        </li>
+        <li>
+          Проставит property <i>hidden</i>, если такого атрибута нет вообще
+        </li>
+        <li>
+          Проставит класс <i>male/female</i>,
+          в зависимости от содержимого ячекйки <i>Gender</i>
+        </li>
+        <li>
+          Установит inline-стиль <i>style="text-decoration: line-through"</i>,
+          если значение ячейки Age меньше 18
+        </li>
+      </ol>
+      <table class="js-teachers">
+        <thead>
+          <tr>
+            <td>Name</td>
+            <td>Age</td>
+            <td>Gender</td>
+            <td>Status</td>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+    <script src="script.js"></script>
+  </body>
+
+</html>
