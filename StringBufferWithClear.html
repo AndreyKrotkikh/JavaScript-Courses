@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <link rel="stylesheet" href="style.css">
+    
+  </head>
+
+  <body>
+    <script>
+
+	function makeBuffer() {
+	  var text = '';
+
+	  return function buff(piece) {
+	    if (arguments.length == 0) { // вызов без аргументов
+	      return text;
+	    }
+	    text += piece;
+
+	    buff.clear = function() {
+		    text = '';
+		};
+	  };
+	}
+
+	var buffer = makeBuffer();
+
+	buffer("Тест");
+	buffer(" тебя не съест ");
+	alert( buffer() ); // Тест тебя не съест
+
+	buffer.clear();
+
+	alert( buffer() ); // ""
+
+    </script>
+  </body>
+
+</html>

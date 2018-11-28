@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <link rel="stylesheet" href="style.css">
+    
+  </head>
+
+  <body>
+    <script>
+
+	function makeBuffer() {
+	  var text = '';
+
+	  return function(piece) {
+	    if (arguments.length == 0) { // вызов без аргументов
+	      return text;
+	    }
+	    text += piece;
+	  };
+	}
+
+	var buffer = makeBuffer();
+
+	// добавить значения к буферу
+	buffer('Замыкания');
+	buffer(' Использовать');
+	buffer(' Нужно!');
+
+	// получить текущее значение
+	alert( buffer() ); // Замыкания Использовать Нужно!
+
+    </script>
+  </body>
+
+</html>
